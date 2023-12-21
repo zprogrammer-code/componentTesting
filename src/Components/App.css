@@ -1,0 +1,10 @@
+.carousel-pic{
+    
+    width: 200px;
+    height: 200px;
+}
+
+.carousel-inner{
+    display: flex;
+    flex-direction: row;
+}

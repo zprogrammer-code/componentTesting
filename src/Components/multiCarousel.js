@@ -1,7 +1,28 @@
-import React, { useState } from "react";
-import "/home/zprogrammercode/carousel1/src/Components/App.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-const Carosel = () => {
+const MultiCarousel = () => {
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+
 const Products = [
     {id: "0", name: "nike shox", summary: "premiere classic look and model.", price: "$125", pic: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRcX9MOessS7zpD7QuN1WQihCVxk4uk42-JfG0kTIobTQZJJUiW7OwWYX6DcWUmYs7Jh3W1hCWjxjbAyZsp2AHk2sHzUgvhyDTHaib5aPF7C74_8QZvU98erw", sizes: [0] },
     {id: "1", name: "nike jordan", summary: "premiere classic look and model.", price: "$300", pic: "https://m.media-amazon.com/images/I/61-pep8hgAL._AC_SX695_.jpg", sizes: [0] },
@@ -12,50 +33,34 @@ const Products = [
     {id: "6", name: "Vans Kru School Shoe", summary: "A Puffy 90s Style Inspired by the Past, But Built for Today. The Knu Skool is a modern interpretation of a classic 90s style, defined by its puffed up tongue and 3D-molded Sidestripe, and tied off with oversized, chunky laces. With its in-your-face profile and dramatic style details, the Knu Skool plays off of the original Old Skool™ while blending an icon of the past with today’s trends.", price: "$100", pic: "https://images.vans.com/is/image/Vans/VN0009QC_NWD_ALT1?hei=617&wid=492&qlt=50&resMode=sharp2&op_sum=0.9,1.0,8,0", sizes: [0] },
 
 ]
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const handleNext = () => {
-    setActiveIndex((prevActiveIndex) => (prevActiveIndex + 1) % Products.length);
-  };
-
-  const handlePrevious = () => {
-    setActiveIndex((prevActiveIndex) => {
-      const nextIndex = prevActiveIndex - 1;
-      if (nextIndex < 0) {
-        return Products.length - 1;
-      }
-      return nextIndex;
-    });
-  };
-
-
-
-
-  return (
-    <div className="carousel">
-      <div className="carousel-inner">
-        {Products.map((product, index) => (
-          <div
-            key={index}
-            className={`carousel-item ${index === activeIndex ? "active" : ""}`}
-          >
+return(
+<Carousel r  swipeable={false}
+  draggable={false}
+  showDots={true}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  /*autoPlay={this.props.deviceType !== "mobile" ? true : false}*/
+  autoPlaySpeed={1000}
+  keyBoardControl={true}
+  customTransition="all .5"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  /*deviceType={this.props.deviceType}*/
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding-40-px">
+{Products.map((product, index) => (
+          <div key={index} >
             <img src={product.pic} alt="shoes" className="carousel-pic"/>
             
           </div>
         ))}
-      </div>
-      <div className="carousel-controls">
-        <button type="button" className="carousel-control-prev" onClick={handlePrevious}>
-          <span className="carousel-control-prev-icon" aria-hidden="true" />
-          <span className="sr-only">Previous</span>
-        </button>
-        <button type="button" className="carousel-control-next" onClick={handleNext}>
-          <span className="carousel-control-next-icon" aria-hidden="true" />
-          <span className="sr-only">Next</span>
-        </button>
-      </div>
-    </div>
-  );
+
+</Carousel>
+    );
+
 };
 
-export default Carosel;
+export default MultiCarousel;
